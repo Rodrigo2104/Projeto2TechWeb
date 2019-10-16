@@ -1,7 +1,0 @@
-import axios from "axios";
-
-const api = axios.create({
-	baseUrl:"https://api.coindesk.com/v1"
-});
-
-export default api;
