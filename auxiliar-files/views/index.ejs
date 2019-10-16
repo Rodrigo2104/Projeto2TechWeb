@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		<% 
+			var cores ={
+			'normal':'#A9A879',
+			'fighting':'#D51C0D',
+			'flying':'#AC8FEF',
+			'poison':'#AF399D',
+			'ground':'#E9BF67',
+			'rock':'#BF9F38',
+			'bug':'#A5B82B',
+			'ghost':'#745797',
+			'steel':'#B8B8D0',
+			'fire':'#FF7919',
+			'water':'#5591F0',
+			'grass':'#55CA59',
+			'electric':'#FFCE2E',
+			'psychic':'#FF4980',
+			'ice':'#7FDADA',
+			'dragon':'#7636F6',
+			'dark':'#765747',
+			'fairy':'#FF95A8'
+			}
+
+		%>
+		body{
+			background-color: #FFCE2E;
+			background-image: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/172.png");
+			background-repeat: repeat;}
+		h1 {color:black;}
+		p {color:black;}
+		table{
+			border-collapse: collapse;
+			box-shadow: 2px 2px 4px #000000;
+			border-radius: 25px;
+			padding: auto; 
+		}
+
+		th{	
+			padding: auto;
+			margin: auto;
+			color:white;
+  			background-color: #313131;
+		}
+		td{
+			padding: 10px;
+			margin: auto;
+			text-align: center;
+			border-top:solid white 1px;
+		}
+		td.th{
+			border-radius: 25px;
+		}
+		tr:nth-child(even) {background-color: #f2f2f2;}
+		tr:nth-child(odd) {background-color: white;}
+		th:first-child {
+		    border-radius: 25px 0 0 0;
+		}
+
+		th:last-child {
+		    border-radius: 0 25px 0 0;
+		}
+
+		tr:last-child td:first-child {
+			border-radius: 0 0 0 25px;
+		}
+		tr:last-child td:last-child {
+			border-radius: 0 0 25px 0;
+		}
+		img{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		}
+		td.img{
+			border:solid white 1px;
+		}
+		fieldset{
+			background-color: #e0eeee;
+		}
+		.container {
+		  display: block;
+		  position: relative;
+		  padding-left: 35px;
+		  margin-bottom: 12px;
+		  cursor: pointer;
+		  font-size: 22px;
+		  -webkit-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		/* Hide the browser's default checkbox */
+		.container input {
+		  position: absolute;
+		  opacity: 0;
+		  cursor: pointer;
+		  height: 0;
+		  width: 0;
+		}
+
+		/* Create a custom checkbox */
+		.checkmark {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  height: 25px;
+		  width: 25px;
+		  background-color: #eee;
+		}
+
+		/* On mouse-over, add a grey background color */
+		.container:hover input ~ .checkmark {
+		  background-color: #ccc;
+		}
+
+		/* When the checkbox is checked, add a blue background */
+		.container input:checked ~ .checkmark {
+		  background-color: #2196F3;
+		}
+
+		/* Create the checkmark/indicator (hidden when not checked) */
+		.checkmark:after {
+		  content: "";
+		  position: absolute;
+		  display: none;
+		}
+
+		/* Show the checkmark when checked */
+		.container input:checked ~ .checkmark:after {
+		  display: block;
+		}
+
+		/* Style the checkmark/indicator */
+		.container .checkmark:after {
+		  left: 9px;
+		  top: 5px;
+		  width: 5px;
+		  height: 10px;
+		  border: solid white;
+		  border-width: 0 3px 3px 0;
+		  -webkit-transform: rotate(45deg);
+		  -ms-transform: rotate(45deg);
+		  transform: rotate(45deg);
+		}
+
+	</style>
+</head>
+<body>
+	<form action="/selecao" method="post">
+<fieldset>
+<h1>Tipos</h1>
+<% var list = ['normal','fighting','flying','poison','ground','rock','bug','ghost','steel','fire','water','grass','electric','psychic','ice','dragon','dark','fairy']
+for (var i = 0 ; i < list.length ; i++){%>
+<label class="container">
+<input type="checkbox" name="tipo" value="<%=list[i]%>" ><span class="checkmark"></span><%=list[i]%><br>
+</label>
+<% } %>
+<input type="submit" value="Pesquisar" name="search">
+</fieldset>
+</form>
+<table>
+<tr>
+<th>Id</th>
+<th>Nome</th>
+<th>Aparência</th>
+</tr>
+<% for(var i = 0; i < data.length; i++){%>
+<tr>
+<td><%= data[i]["game_id"] %></td>
+<td><%= data[i]["nome"]%></td>
+<% if(data[i].tipo2=='NULL'){%>
+<td style="background-color: <%=cores[data[i].tipo1]%>">
+<div class="gallery">
+<a target="_self" href="<%= data[i]['sprite_front_default']%>">
+<img src="<%= data[i]['sprite_front_default']%>">
+</a>
+<div class="desc">Add a description of the image here</div>
+</div>
+</td>
+<%} else{%>
+<td style="background-image: linear-gradient(to top right,<%=cores[data[i].tipo1]%>, <%=cores[data[i].tipo2]%>);">
+<div class="gallery">
+<a target="_self" href="<%= data[i]['sprite_front_default']%>">
+<img src="<%= data[i]['sprite_front_default']%>">
+</a>
+<div class="desc">Add a description of the image here</div>
+</div>
+</td>
+<% } %>
+</tr>
+<% } %>
+</table>
+</body>
+</html>
