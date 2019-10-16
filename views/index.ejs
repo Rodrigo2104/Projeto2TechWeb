@@ -151,59 +151,49 @@
 	</style>
 </head>
 <body>
-
 	<form action="/selecao" method="post">
-		<fieldset>
-			<h1>Tipos</h1>
-			<% var list = ['normal','fighting','flying','poison','ground','rock','bug','ghost','steel','fire','water','grass','electric','psychic','ice','dragon','dark','fairy']
-			for (var i = 0 ; i < list.length ; i++){%>
-
-				<label class="container">
-				<input type="checkbox" name="tipo" value="<%=list[i]%>" ><span class="checkmark"></span><%=list[i]%><br>
-				</label>
-
-			<% } %>
-		<input type="submit" value="Pesquisar" name="search">
-	</fieldset>
-	</form>
-
-
-	<table>
-
-		<tr>
-			<th>Id</th>
-			<th>Nome</th>
-			<th>Aparência</th>
-		</tr>
-		<% for(var i = 0; i < data.length; i++){%>
-		<tr>
-			<td><%= data[i]["game_id"] %></td>
-			<td><%= data[i]["nome"]%></td>
-
-			<% if(data[i].tipo2=='NULL'){%>
-				<td style="background-color: <%=cores[data[i].tipo1]%>">
-					<div class="gallery">
-						<a target="_self" href="<%= data[i]['sprite_front_default']%>">
-					    	<img src="<%= data[i]['sprite_front_default']%>">
-					  	</a>
-					  	<div class="desc">Add a description of the image here</div>
-					</div>
-						
-				</td>
-			<%} else{%>
-			<td style="background-image: linear-gradient(to top right,<%=cores[data[i].tipo1]%>, <%=cores[data[i].tipo2]%>);">
-				<div class="gallery">
-					<a target="_self" href="<%= data[i]['sprite_front_default']%>">
-						<img src="<%= data[i]['sprite_front_default']%>">
-					</a>
-						<div class="desc">Add a description of the image here</div>
-				</div>
-			</td>
-			<% } %>
-
-		</tr>
-		<% } %>
-
-	</table>
+<fieldset>
+<h1>Tipos</h1>
+<% var list = ['normal','fighting','flying','poison','ground','rock','bug','ghost','steel','fire','water','grass','electric','psychic','ice','dragon','dark','fairy']
+for (var i = 0 ; i < list.length ; i++){%>
+<label class="container">
+<input type="checkbox" name="tipo" value="<%=list[i]%>" ><span class="checkmark"></span><%=list[i]%><br>
+</label>
+<% } %>
+<input type="submit" value="Pesquisar" name="search">
+</fieldset>
+</form>
+<table>
+<tr>
+<th>Id</th>
+<th>Nome</th>
+<th>Aparência</th>
+</tr>
+<% for(var i = 0; i < data.length; i++){%>
+<tr>
+<td><%= data[i]["game_id"] %></td>
+<td><%= data[i]["nome"]%></td>
+<% if(data[i].tipo2=='NULL'){%>
+<td style="background-color: <%=cores[data[i].tipo1]%>">
+<div class="gallery">
+<a target="_self" href="<%= data[i]['sprite_front_default']%>">
+<img src="<%= data[i]['sprite_front_default']%>">
+</a>
+<div class="desc">Add a description of the image here</div>
+</div>
+</td>
+<%} else{%>
+<td style="background-image: linear-gradient(to top right,<%=cores[data[i].tipo1]%>, <%=cores[data[i].tipo2]%>);">
+<div class="gallery">
+<a target="_self" href="<%= data[i]['sprite_front_default']%>">
+<img src="<%= data[i]['sprite_front_default']%>">
+</a>
+<div class="desc">Add a description of the image here</div>
+</div>
+</td>
+<% } %>
+</tr>
+<% } %>
+</table>
 </body>
 </html>

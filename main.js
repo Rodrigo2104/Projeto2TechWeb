@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var connection = mysql.createConnection({
 	host: 'localhost',
-	user: 'root',
-	password:'0t0rr1n0l4r1ng0l0g1st4',
+	user: 'evandro',
+	password:'888941',
 	database:'pokemon'
 });
 
@@ -43,10 +43,56 @@ app.post('/selecao', function(req, res){
 		
 });
 
+app.post('/cadastro', function(req, res){
+		
+		const sql = "INSERT INTO users (login,password,name) VALUES (?)";
+
+		const values = [[req.body.login,req.body.password,req.body.name]];
+		if (req.body.password === req.body.confirmpassword){
+		connection.query(sql, values, function(error, results, fields){
+			if (error) return console.log(error);
+		});
+		res.redirect('/register');
+		} else {
+			res.redirect('/register');
+		}
+});
+app.get('/register', function(req, res){
+	res.sendFile(__dirname + '/register.html');
+});
+
+app.post('/login', function(req, res){
+		
+		const sql = "SELECT * FROM users WHERE login = (?) AND password = (?)";
+		const login = req.body.login;
+		const password = req.body.password;
+		if (login && password){
+			const values = [[login],[password]];
+			connection.query(sql, values, function(error, results, fields){
+				if (error) return console.log(error);
+				if (results.length > 0){
+					console.log(req.body.login + " logado!");
+					res.redirect('/');
+				} else {
+					console.log("login ou senha incorreto!");
+					res.redirect('/register');
+				}
+			});
+		} else {
+			console.log("Erro no login!");
+			res.redirect('/register');
+		}
+		
+		
+});
+
+
 
 app.get('/pesquisa', function(req, res){
 	res.sendFile(__dirname + '/form.html');
 });
+
+
 
 app.post('/pesquisa', function(req, res){
 	
